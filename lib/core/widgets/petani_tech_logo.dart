@@ -15,39 +15,60 @@ class PetaniTechLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final foreground = light ? Colors.white : AppColors.primary;
-    final titleColor = light ? Colors.white : AppColors.textDark;
+    final textColor = light ? Colors.white : AppColors.textDark;
+    final subTextColor = light
+        ? Colors.white.withValues(alpha: 0.85)
+        : AppColors.textGrey;
+
+    final logoBoxColor = light
+        ? Colors.white.withValues(alpha: 0.14)
+        : AppColors.lightGreenBackground;
+
+    final imageSize = compact ? 28.0 : 34.0;
+    final boxSize = compact ? 46.0 : 58.0;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: compact ? 40 : 58,
-          height: compact ? 40 : 58,
+          width: boxSize,
+          height: boxSize,
           decoration: BoxDecoration(
-            color: light ? Colors.white.withOpacity(.16) : AppColors.lightGreenBackground,
-            borderRadius: BorderRadius.circular(compact ? 13 : 18),
+            color: logoBoxColor,
+            borderRadius: BorderRadius.circular(16),
           ),
-          child: Icon(
-            Icons.eco_rounded,
-            color: foreground,
-            size: compact ? 26 : 38,
+          padding: const EdgeInsets.all(8),
+          child: Image.asset(
+            'assets/images/petani_tech_logo.png',
+            fit: BoxFit.contain,
+            width: imageSize,
+            height: imageSize,
           ),
         ),
         const SizedBox(width: 12),
         Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Petani Tech',
-              style: AppTextStyles.h2.copyWith(color: titleColor),
+              style: (compact ? AppTextStyles.h3 : AppTextStyles.h2).copyWith(
+                color: textColor,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             if (!compact)
               Text(
                 'Seller Center',
+                style: AppTextStyles.bodyMuted.copyWith(
+                  color: subTextColor,
+                ),
+              ),
+            if (compact)
+              Text(
+                'Seller Center',
                 style: AppTextStyles.caption.copyWith(
-                  color: light ? Colors.white70 : AppColors.textGrey,
+                  color: subTextColor,
                 ),
               ),
           ],
